@@ -13,21 +13,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // --- CONFIGURAÇÃO DAS IMAGENS ---
-  // Certifique-se de que as imagens estão salvas em public/assets/ com esses nomes exatos
+  // Adicionei ?v=1 para forçar o navegador a carregar a imagem nova
   const desktopImages = [
-      "/assets/workspace.png", // Imagem 1: Workspace com navegadores
-      "/assets/chat.png",      // Imagem 2: Chat interagindo
-      "/assets/catalog.png",   // Imagem 3: Grid do Catálogo
-      "/assets/deploy.png",    // Imagem 4: Modal de Adicionar
+      "/assets/workspace.png?v=1", 
+      "/assets/chat.png?v=1",      
+      "/assets/catalog.png?v=1",   
+      "/assets/deploy.png?v=1",    
   ];
 
   // Usando as mesmas imagens para o mobile (o CSS object-cover vai ajustar o corte)
-  // Se tiver prints específicos de celular, salve como mobile_workspace.png e altere aqui.
   const mobileImages = [
-      "/assets/workspace.png",
-      "/assets/chat.png",
-      "/assets/catalog.png",
-      "/assets/deploy.png",
+      "/assets/workspace.png?v=1",
+      "/assets/chat.png?v=1",
+      "/assets/catalog.png?v=1",
+      "/assets/deploy.png?v=1",
   ];
 
   // Auto-rotate slides
@@ -197,8 +196,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
                                                 (e.target as HTMLImageElement).parentElement!.innerHTML = `
                                                     <div class="w-full h-full flex flex-col items-center justify-center bg-[#0F0518] text-gray-500 p-8 text-center">
                                                         <span class="material-icons-outlined text-4xl mb-2">image_not_supported</span>
-                                                        <p>Imagem não encontrada: ${src}</p>
-                                                        <p class="text-xs mt-2">Salve a imagem em /public${src}</p>
+                                                        <p>Imagem não encontrada</p>
+                                                        <p class="text-xs mt-2 break-all font-mono text-gray-600">Verifique: public${src.split('?')[0]}</p>
                                                     </div>
                                                 `;
                                             }}
