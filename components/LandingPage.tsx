@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { AppState } from '../types';
 
@@ -13,29 +12,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // --- CONFIGURAÇÃO DAS IMAGENS ---
-  // Adicionei ?v=1 para forçar o navegador a carregar a imagem nova
+  // LINKS CORRIGIDOS DO GOOGLE DRIVE (FORMATO DE DOWNLOAD DIRETO)
   const desktopImages = [
-      "/assets/workspace.png?v=1", 
-      "/assets/chat.png?v=1",      
-      "/assets/catalog.png?v=1",   
-      "/assets/deploy.png?v=1",    
+      "https://drive.google.com/uc?export=download&id=1e29oqM0Eyzxdu5TepbOY6fBROc3H5K6L", 
+      "https://drive.google.com/uc?export=download&id=1kkNIeEr1en5tnjXnsGyWW7gip_zrDnXW", 
+      "https://drive.google.com/uc?export=download&id=1sYhYltrkv1rKjltVA4CgIrJhWoMnohvi", 
+      "https://drive.google.com/uc?export=download&id=1qBcwtPyaAWAiOwydfm-6YdYUmpRMA-nj", 
   ];
 
-  // Usando as mesmas imagens para o mobile (o CSS object-cover vai ajustar o corte)
+  // Usando as mesmas imagens para o mobile 
   const mobileImages = [
-      "/assets/workspace.png?v=1",
-      "/assets/chat.png?v=1",
-      "/assets/catalog.png?v=1",
-      "/assets/deploy.png?v=1",
+      "https://drive.google.com/uc?export=download&id=1e29oqM0Eyzxdu5TepbOY6fBROc3H5K6L", 
+      "https://drive.google.com/uc?export=download&id=1kkNIeEr1en5tnjXnsGyWW7gip_zrDnXW", 
+      "https://drive.google.com/uc?export=download&id=1sYhYltrkv1rKjltVA4CgIrJhWoMnohvi", 
+      "https://drive.google.com/uc?export=download&id=1qBcwtPyaAWAiOwydfm-6YdYUmpRMA-nj", 
   ];
 
   // Auto-rotate slides
-  useEffect(() => {
+useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % desktopImages.length);
     }, 4000); // Change slide every 4 seconds
     return () => clearInterval(timer);
-  }, [desktopImages.length]);
+  }, [desktopImages.length])
 
   const trendingModels = [
       { name: 'DeepSeek R1', type: 'Reasoning', color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
@@ -170,7 +169,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
                 
                 {/* Container de Composição */}
                 <div className="relative flex items-end justify-center pr-12 md:pr-20">
-
+                  
                     {/* 1. LAPTOP FRAME */}
                     <div className="relative z-10 w-full md:w-[800px] aspect-[16/10] bg-[#111] rounded-2xl border-[1px] border-[#333] shadow-2xl shadow-black flex flex-col overflow-hidden ring-4 ring-black">
                         {/* Laptop Camera */}
@@ -197,7 +196,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
                                                     <div class="w-full h-full flex flex-col items-center justify-center bg-[#0F0518] text-gray-500 p-8 text-center">
                                                         <span class="material-icons-outlined text-4xl mb-2">image_not_supported</span>
                                                         <p>Imagem não encontrada</p>
-                                                        <p class="text-xs mt-2 break-all font-mono text-gray-600">Verifique: public${src.split('?')[0]}</p>
+                                                        <p class="text-xs mt-2 break-all font-mono text-gray-600">Verifique se o arquivo existe em:<br/>/public${src.split('?')[0]}</p>
                                                     </div>
                                                 `;
                                             }}
