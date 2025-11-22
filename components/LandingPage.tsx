@@ -12,32 +12,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Images for the carousel
-  // REPLACE THESE PLACEHOLDERS WITH YOUR REAL IMAGE URLS
+  // --- CONFIGURAÇÃO DAS IMAGENS ---
+  // Certifique-se de que as imagens estão salvas em public/assets/ com esses nomes exatos
   const desktopImages = [
-      "https://placehold.co/1200x800/1a1a1a/FFF?text=Dashboard+View", // Slide 1
-      "https://placehold.co/1200x800/2a1a3a/FFF?text=Multi-Chat+View", // Slide 2
-      "https://placehold.co/1200x800/0a1a2a/FFF?text=Catalog+View",    // Slide 3
-      "https://placehold.co/1200x800/1a1a1a/FFF?text=Project+View",    // Slide 4
-      "https://placehold.co/1200x800/2a1a3a/FFF?text=Settings+View",   // Slide 5
-      "https://placehold.co/1200x800/0a1a2a/FFF?text=Workspace+1",     // Slide 6
-      "https://placehold.co/1200x800/1a1a1a/FFF?text=Workspace+2",     // Slide 7
-      "https://placehold.co/1200x800/2a1a3a/FFF?text=Analytics",       // Slide 8
-      "https://placehold.co/1200x800/0a1a2a/FFF?text=Team+View",       // Slide 9
-      "https://placehold.co/1200x800/1a1a1a/FFF?text=Mobile+Preview",  // Slide 10
+      "/assets/workspace.png", // Imagem 1: Workspace com navegadores
+      "/assets/chat.png",      // Imagem 2: Chat interagindo
+      "/assets/catalog.png",   // Imagem 3: Grid do Catálogo
+      "/assets/deploy.png",    // Imagem 4: Modal de Adicionar
   ];
 
+  // Usando as mesmas imagens para o mobile (o CSS object-cover vai ajustar o corte)
+  // Se tiver prints específicos de celular, salve como mobile_workspace.png e altere aqui.
   const mobileImages = [
-      "https://placehold.co/300x600/1a1a1a/FFF?text=Mob1",
-      "https://placehold.co/300x600/2a1a3a/FFF?text=Mob2",
-      "https://placehold.co/300x600/0a1a2a/FFF?text=Mob3",
-      "https://placehold.co/300x600/1a1a1a/FFF?text=Mob4",
-      "https://placehold.co/300x600/2a1a3a/FFF?text=Mob5",
-      "https://placehold.co/300x600/0a1a2a/FFF?text=Mob6",
-      "https://placehold.co/300x600/1a1a1a/FFF?text=Mob7",
-      "https://placehold.co/300x600/2a1a3a/FFF?text=Mob8",
-      "https://placehold.co/300x600/0a1a2a/FFF?text=Mob9",
-      "https://placehold.co/300x600/1a1a1a/FFF?text=Mob10",
+      "/assets/workspace.png",
+      "/assets/chat.png",
+      "/assets/catalog.png",
+      "/assets/deploy.png",
   ];
 
   // Auto-rotate slides
@@ -190,19 +180,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
                         </div>
                         
                         {/* Screen Area with Image Carousel */}
-                        <div className="flex-1 relative bg-[#05000A] overflow-hidden">
+                        <div className="flex-1 relative bg-[#05000A] overflow-hidden group">
                             <div 
                                 className="flex transition-transform duration-700 ease-in-out h-full"
                                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                             >
                                 {desktopImages.map((src, idx) => (
-                                    <img 
-                                        key={idx}
-                                        src={src} 
-                                        alt={`Dashboard View ${idx + 1}`}
-                                        className="min-w-full h-full object-cover object-top"
-                                    />
+                                    <div key={idx} className="min-w-full h-full relative">
+                                        <img 
+                                            src={src} 
+                                            alt={`DataBot Feature ${idx + 1}`}
+                                            className="w-full h-full object-cover object-top"
+                                            onError={(e) => {
+                                                // Fallback visual if image not found
+                                                (e.target as HTMLImageElement).style.display = 'none';
+                                                (e.target as HTMLImageElement).parentElement!.innerHTML = `
+                                                    <div class="w-full h-full flex flex-col items-center justify-center bg-[#0F0518] text-gray-500 p-8 text-center">
+                                                        <span class="material-icons-outlined text-4xl mb-2">image_not_supported</span>
+                                                        <p>Imagem não encontrada: ${src}</p>
+                                                        <p class="text-xs mt-2">Salve a imagem em /public${src}</p>
+                                                    </div>
+                                                `;
+                                            }}
+                                        />
+                                    </div>
                                 ))}
+                            </div>
+                            
+                            {/* Carousel Controls Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button onClick={() => setCurrentSlide(prev => prev === 0 ? desktopImages.length - 1 : prev - 1)} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"><span className="material-icons-outlined">chevron_left</span></button>
+                                <button onClick={() => setCurrentSlide(prev => (prev + 1) % desktopImages.length)} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors"><span className="material-icons-outlined">chevron_right</span></button>
                             </div>
                         </div>
                     </div>
@@ -219,12 +227,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterHub, onNavigate, onOpe
                                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                              >
                                 {mobileImages.map((src, idx) => (
-                                    <img 
-                                        key={idx}
-                                        src={src} 
-                                        alt={`Mobile View ${idx + 1}`}
-                                        className="min-w-full h-full object-cover object-top"
-                                    />
+                                    <div key={idx} className="min-w-full h-full">
+                                        <img 
+                                            src={src} 
+                                            alt={`Mobile Feature ${idx + 1}`}
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                    </div>
                                 ))}
                              </div>
                         </div>
