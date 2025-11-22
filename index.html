@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>DataBotAI Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+            },
+            colors: {
+              primary: "#A020F0", // Electric Purple
+              secondary: "#00FFFF", // Cyan/Aqua
+              "bg-dark": "#0A0014", // Deep Dark Purple/Black
+              "bg-panel": "#120822",
+              "surface": "#1E1430",
+            },
+            backgroundImage: {
+              'neon-gradient': 'linear-gradient(90deg, #A020F0, #00FFFF)',
+              'radial-glow': 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(160, 32, 240, 0.15), transparent)',
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0A0014;
+        color: #ffffff;
+        overscroll-behavior-y: none; /* Prevents pull-to-refresh on some browsers which ruins app feel */
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      /* Custom scrollbar for desktop */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(160, 32, 240, 0.3);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(160, 32, 240, 0.6);
+      }
+      
+      .glass-panel {
+        background: rgba(18, 8, 34, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .neon-border {
+        box-shadow: 0 0 5px rgba(160, 32, 240, 0.3), inset 0 0 5px rgba(160, 32, 240, 0.1);
+      }
+      .neon-text-glow {
+        text-shadow: 0 0 10px rgba(160, 32, 240, 0.6);
+      }
+      .cyan-text-glow {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+      }
+      /* Utility to hide scrollbar but keep functionality */
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body class="font-display antialiased h-full w-full overflow-hidden">
+    <div id="root"></div>
+  </body>
+</html>
